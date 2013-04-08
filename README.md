@@ -8,6 +8,6 @@ Recibe un parámetro que corresponde al archivo de datos.
 
 Ejemplo de ejecución:
 <pre>
-?> php secuencias.php input.txt
+?> php guilty.php input.txt
 El culpable es el sospechoso numero 3 (AGTGATA).
 </pre>
