@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Guilty
 {
@@ -16,7 +16,7 @@ class Guilty
 
 		$this->loadFile($file);
 
-		foreach ($this->suspects as $idSuspect => $suspect) 
+		foreach ($this->suspects as $idSuspect => $suspect)
 		{
 			$fitness = $this->fitness($this->evidence, $suspect);
 			if ($best["fitness"] < $fitness || $idSuspect == 0) {
@@ -37,7 +37,7 @@ class Guilty
 
 		$file = file($route, FILE_IGNORE_NEW_LINES);
 
-		foreach ($file as $line ) 
+		foreach ($file as $line )
 		{
 			$line = str_replace(" ", "", $line);
 			if ($line[0] == '#') continue;
@@ -48,7 +48,8 @@ class Guilty
 					$this->evidence = substr($line, 2);
 				}
 				else {
-					$this->suspects[] = substr($line, 2);
+					$linePart = explode(":", $line);
+					$this->suspects[] =  $linePart[1];
 				}
 			}
 		}
@@ -66,14 +67,14 @@ class Guilty
 
 		if ($lenghtEvidence == 0 && $lenghtSuspect == 0) {
 			return 0;
-		} else {	
+		} else {
 
-			if ($lenghtEvidence > 0 && $lenghtSuspect > 0) {		
+			if ($lenghtEvidence > 0 && $lenghtSuspect > 0) {
 				$fitnessValue[] = $this->searchScore(substr($evidence, 1), substr($suspect, 1)) + $this->matrix[$evidence[0]][$suspect[0]];
 			}
 			if ($evidence[0] != $suspect[0]) {
 				if ($lenghtSuspect > 0) {
-					$fitnessValue[] = $this->searchScore($evidence, substr($suspect, 1)) + $this->matrix["-"][$suspect[0]];				
+					$fitnessValue[] = $this->searchScore($evidence, substr($suspect, 1)) + $this->matrix["-"][$suspect[0]];
 				}
 				if ($lenghtEvidence > 0) {
 					$fitnessValue[] = $this->searchScore(substr($evidence, 1),$suspect) + $this->matrix[$evidence[0]]["-"];
